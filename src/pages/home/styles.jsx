@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   width: 100%;
@@ -8,6 +9,12 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  transition: background 10s;
+
+  @media (max-width: 770px) {
+    display: block;
+  }
 `;
 
 export const Swapper = styled(motion.div)`
@@ -25,12 +32,29 @@ export const Swapper = styled(motion.div)`
   border-radius: 16px;
   background: #1e1f28;
   box-shadow: 0px -3px 22px 0px rgba(0, 0, 0, 0.35);
+
+  @media (max-width: 770px) {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 14px 16px;
+
+    border-radius: 0px;
+  }
 `;
 
 export const Card = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 32px;
+
+  @media (max-width: 770px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export const Film = styled(motion.div)`
@@ -85,6 +109,10 @@ export const Top = styled.div`
       background: linear-gradient(90deg, #9f55ff 0%, #ff46b9 100%);
     }
   }
+
+  @media (max-width: 770px) {
+    width: 100%;
+  }
 `;
 
 export const Logo = styled.div``;
@@ -113,6 +141,7 @@ export const Section = styled.div`
   align-self: stretch;
 
   height: 40px;
+
   .center {
     display: flex;
     align-items: center;
@@ -195,7 +224,7 @@ export const Launch = styled.div`
   }
 `;
 
-export const PlayerTrailer = styled.button`
+export const PlayerTrailer = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -209,6 +238,7 @@ export const PlayerTrailer = styled.button`
   background: #2b2b37;
   border: 0;
 
+  text-decoration: none;
   color: #fff;
   font-size: 16px;
   font-style: normal;

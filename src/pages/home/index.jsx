@@ -12,6 +12,7 @@ function Home() {
 
   const [movies, setMovies] = useState([]);
   const [background, setBackground] = useState( "linear-gradient(45deg, #181920, #323242)" );
+  const isDesktop = window.innerWidth >= 768;
 
   const handleMouseEnter = (index) => {
     switch (index) {
@@ -51,7 +52,7 @@ function Home() {
   }, []);
 
   return (
-    <Container style={{ background: background }}>
+    <Container style={{ background: background, transition: "background 10s"}}>
       <Swapper
         initial={{ scale: 0.5 }}
         animate={{ scale: 1 }}
@@ -74,9 +75,9 @@ function Home() {
             movies.slice(0, 3).map((movie, index) => (
               <Film
                 key={movie.id}
-                initial={{ y: "120%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.5, delay: 1.1 }}
+                initial={isDesktop ? { y: "120%" } : {}}
+                animate={isDesktop ? { y: 0 } : {}}
+                transition={isDesktop ? { duration: 0.5, delay: 1.1 } : {}}
                 onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={handleMouseLeave}
               >
@@ -110,9 +111,9 @@ function Home() {
                         </Launch>
                       </DivInfo>
 
-                      <PlayerTrailer>
+                      <PlayerTrailer to={`/movie/${movie.id}`}>
                         <img src={btn} alt="Assistir trailer" />
-                        assistir trailer
+                        Ver Sinopse
                       </PlayerTrailer>
 
                     </Image>

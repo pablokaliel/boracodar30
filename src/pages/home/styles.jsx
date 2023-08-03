@@ -116,15 +116,15 @@ export const Section = styled.div`
   align-items: center;
   align-self: stretch;
 
+  height: 40px;
   .center {
     display: flex;
     align-items: center;
-
-    height: 40px;
   }
 
   .title {
     display: -webkit-box;
+    overflow:hidden;
 
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;

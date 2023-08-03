@@ -8,9 +8,6 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background: linear-gradient(90deg, #9f55ff 0%, #ff46b9 100%)
-
 `;
 
 export const Swapper = styled(motion.div)`
@@ -23,7 +20,7 @@ export const Swapper = styled(motion.div)`
 
   padding: 64px 96px;
   gap: 36px;
-  
+
   background: #fff;
   border-radius: 16px;
   background: #1e1f28;
@@ -37,7 +34,7 @@ export const Card = styled.div`
 `;
 
 export const Film = styled(motion.div)`
-  width: 194px;
+  width: 210px;
   padding: 6px;
 
   border-radius: 8px;
@@ -67,8 +64,7 @@ export const Top = styled.div`
     border-radius: 4px;
     border: 0;
 
-    background: linear-gradient(90deg, #8323ff 0%, #ff2daf 100%
-    );
+    background: linear-gradient(90deg, #8323ff 0%, #ff2daf 100%);
     color: #fff;
 
     div {
@@ -124,7 +120,7 @@ export const Section = styled.div`
 
   .title {
     display: -webkit-box;
-    overflow:hidden;
+    overflow: hidden;
 
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -224,3 +220,6 @@ export const PlayerTrailer = styled.button`
     background: #373745;
   }
 `;
+
+export const SecondCardBg = " linear-gradient(45deg, #8e222c, #de1923)";
+export const ThirdCardBg = "linear-gradient(45deg,#41773e, #44697b)";

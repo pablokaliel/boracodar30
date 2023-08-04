@@ -1,20 +1,28 @@
-import { Container, Swapper, Info, Description, DivInfo, DivImage, Poster, PlayerTrailer, DivMovie } from "./styles";
+import { Container, Swapper, DivBtn, ButtonShare, ButtonTrailer, DivImage, Poster, DivInfo, DivMovie, Top, Logo, DivTitle, Title, Launch, Stars, DivNotion, DivSinopse, Sinopse, PlayerTrailer } from "./styles";
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { ArrowLeft, BookOpen, Graph, Hourglass, Wallet } from "@phosphor-icons/react";
+import { ArrowLeft, Clock, FilmSlate, ShareNetwork, Star, Wallet } from "@phosphor-icons/react";
+import btn from "./../../assets/btn.svg";
+import logo from "./../../assets/logo.svg";
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
-function Movie() {
+export default function Movie() {
+
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
+  const [genres, setGenres] = useState([]);
 
   const formatCurrency = (number) => {
-    return number.toLocaleString("en-US", {
+    const million = 1000000;
+    const adjustedValue = number / million;
+    return adjustedValue.toLocaleString("en-US", {
       style: "currency",
       currency: "USD",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     });
   };
 
@@ -25,6 +33,7 @@ function Movie() {
       );
       const data = await response.json();
       setMovie(data);
+      setGenres(data.genres); // Define o array de gêneros
     } catch (err) {
       console.error("Erro ao buscar filme:", err);
       setMovie(null);
@@ -44,6 +53,17 @@ function Movie() {
             animate={{ scale: 1 }}
             transition={{ duration: 0.5 }}
           >
+
+            <Top>
+              <Logo>
+                <img src={logo} alt="" />
+              </Logo>
+              <PlayerTrailer to={`/`}>
+                <ArrowLeft size={18} color="#ffffff" />
+                Voltar a Home
+              </PlayerTrailer>
+            </Top>
+
             <DivMovie>
               <DivImage>
                 <Poster
@@ -51,45 +71,57 @@ function Movie() {
                   loading="lazy"
                   alt={movie.title}
                 />
+                <DivBtn>
+                  <ButtonTrailer>
+                    <img src={btn} />
+                    Assistir trailer
+                  </ButtonTrailer>
+                  <ButtonShare>
+                    <div>
+                      <ShareNetwork size={28} color="#a754fa" />
+                    </div>
+                  </ButtonShare>
+                </DivBtn>
               </DivImage>
 
               <DivInfo>
-                <Info>
-                  <Wallet size={32} color="#ffffff" />
-                  <div className="desc">
-                    <h1>Orçamento:</h1>
-                    <span>{formatCurrency(movie.budget)}</span>
+                <DivTitle>
+                  <Title>{movie.title}</Title>
+                  <Launch>
+                    <span>({movie.release_date.slice(0, 4)})</span>
+                  </Launch>
+                  <Stars>
+                    <Star size={16} color="#FEEA35" weight="fill" />
+                    <span>{movie.vote_average}</span>
+                  </Stars>
+                </DivTitle>
+
+                <DivNotion>
+                  <div>
+                    <Clock size={24} color="#8b8d9b" />
+                    <span>{movie.runtime}min</span>
                   </div>
-                </Info>
-                <Info>
-                  <Graph size={32} color="#ffffff" />
-                  <div className="desc">
-                    <h1>Receita:</h1>
-                    <span>{formatCurrency(movie.revenue)}</span>
+                  <div>
+                    <Wallet size={24} color="#8b8d9b" />
+                    <span>{formatCurrency(movie.budget)}mi</span>
                   </div>
-                </Info>
-                <Info>
-                  <Hourglass size={32} color="#ffffff" />
-                  <div className="desc">
-                    <h1>Duração:</h1>
-                    <span>{movie.runtime} minutos</span>
-                  </div>
-                </Info>
-                <Description>
-                  <div className="desc">
-                    <BookOpen size={32} color="#ffffff" />
-                    <h1>Descrição:</h1>
-                  </div>
-                  <span>{movie.overview}</span>
-                </Description>
+                  {genres.map((genre) => (
+                    <div key={genre.id}>
+                      <FilmSlate size={24} color="#8b8d9b" />
+                      <span>{genre.name}</span>
+                    </div>
+                  ))}
+                </DivNotion>
+
+                <DivSinopse>
+                  <p>{movie.tagline}</p>
+                  <Sinopse>
+                    <h3>Sinopse</h3>
+                    <span>{movie.overview}</span>
+                  </Sinopse>
+                </DivSinopse>
               </DivInfo>
-
             </DivMovie>
-
-            <PlayerTrailer to={`/`}>
-              <ArrowLeft size={18} color="#ffffff" />
-              Voltar a Home
-            </PlayerTrailer>
           </Swapper>
         </>
       ) : (
@@ -98,5 +130,3 @@ function Movie() {
     </Container>
   );
 }
-
-export default Movie;

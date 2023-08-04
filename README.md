@@ -27,7 +27,9 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - Vite e Styled-Components
 - Motion
 - Git e Github
+-TMDb
 - Figma
+
 
 ## 🔖 Layout
 

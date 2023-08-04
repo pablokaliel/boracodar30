@@ -1,18 +1,33 @@
-import { Container, Swapper, Card, Top, Film, Logo, Recomendation, SecondCardBg, ThirdCardBg, Movie, Section, Stars, Image, Poster, DivInfo, Time, Launch, PlayerTrailer } from "./styles";
+import { Container, Swapper, Card, Top, Film, Logo, Recommendations, SecondCardBg, ThirdCardBg, Movie, Section, Stars, Image, Poster, DivInfo, Time, Launch, PlayerTrailer } from "./styles";
+import { useState, useEffect } from "react";
 
 import logo from "./../../assets/logo.svg";
-import btn from "./../../assets/btn.svg";
-
-import { CalendarBlank, Star, Globe, Lightning } from "@phosphor-icons/react";
-import { useState, useEffect } from "react";
+import { CalendarBlank, Star, Globe, Lightning, Note } from "@phosphor-icons/react";
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
-function Home() {
-
+export default function Home() {
   const [movies, setMovies] = useState([]);
-  const [background, setBackground] = useState( "linear-gradient(45deg, #181920, #323242)" );
+  const [background, setBackground] = useState(
+    "linear-gradient(45deg, #181920, #323242)"
+  );
+  const [loading, setLoading] = useState(false);
+  const [showRetry, setShowRetry] = useState(false);
+
   const isDesktop = window.innerWidth >= 768;
+
+  const handleButtonClick = () => {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      setShowRetry(true);
+
+      setTimeout(() => {
+        setShowRetry(false);
+      }, 3000);
+    }, 2000);
+  };
 
   const handleMouseEnter = (index) => {
     switch (index) {
@@ -39,6 +54,7 @@ function Home() {
       const response = await fetch(
         `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR`
       );
+
       const data = await response.json();
       setMovies(data.results);
     } catch (err) {
@@ -51,8 +67,11 @@ function Home() {
     fetchMovies();
   }, []);
 
+  // Encontrando o filme com o ID 872585 da lista de filmes populares
+  const specialMovie = movies.find((movie) => movie.id === 872585);
+
   return (
-    <Container style={{ background: background, transition: "background 10s"}}>
+    <Container style={{ background: background, transition: "background 10s" }}>
       <Swapper
         initial={{ scale: 0.5 }}
         animate={{ scale: 1 }}
@@ -62,8 +81,12 @@ function Home() {
           <Logo>
             <img src={logo} alt="" />
           </Logo>
-          <button>
-            Nova Recomendação
+          <button onClick={handleButtonClick}>
+            {loading
+              ? "Carregando..."
+              : showRetry
+              ? "Tente novamente"
+              : "Nova Recomendação"}
             <div>
               <Lightning size={18} color="#ffffff" />
             </div>
@@ -71,56 +94,103 @@ function Home() {
         </Top>
 
         <Card>
-          {movies.length > 0 ? (
-            movies.slice(0, 3).map((movie, index) => (
+          {movies.length >= 3 ? (
+            <>
+              {movies.slice(0, 2).map((movie, index) => (
+                <Film
+                  key={movie.id}
+                  initial={isDesktop ? { y: "120%" } : {}}
+                  animate={isDesktop ? { y: 0 } : {}}
+                  transition={isDesktop ? { duration: 0.5, delay: 1.1 } : {}}
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <Recommendations>
+                    <Movie>
+                      <Section>
+                        <div className="title">
+                          <h1>{movie.title}</h1>
+                        </div>
+                        <Stars>
+                          <Star size={16} color="#FEEA35" weight="fill" />
+                          <span>{movie.vote_average}</span>
+                        </Stars>
+                      </Section>
+
+                      <Image>
+                        <Poster
+                          src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                          loading="lazy"
+                          alt={movie.title}
+                        />
+
+                        <DivInfo>
+                          <Time>
+                            <Globe size={20} color="#8b8d9d" />
+                            <span>{movie.original_language}/pt-BR</span>
+                          </Time>
+                          <Launch>
+                            <CalendarBlank size={20} color="#8b8d9d" />
+                            <span>{movie.release_date.slice(0, 4)}</span>
+                          </Launch>
+                        </DivInfo>
+
+                        <PlayerTrailer to={`/movie/${movie.id}`}>
+                          <Note size={24} color="#8b8d9b" />
+                          Ver Sinopse
+                        </PlayerTrailer>
+                      </Image>
+                    </Movie>
+                  </Recommendations>
+                </Film>
+              ))}
+
               <Film
-                key={movie.id}
                 initial={isDesktop ? { y: "120%" } : {}}
                 animate={isDesktop ? { y: 0 } : {}}
                 transition={isDesktop ? { duration: 0.5, delay: 1.1 } : {}}
-                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseEnter={() => handleMouseEnter(2)}
                 onMouseLeave={handleMouseLeave}
               >
-                <Recomendation>
+                <Recommendations>
                   <Movie>
                     <Section>
                       <div className="title">
-                        <h1>{movie.title}</h1>
+                        <h1>{specialMovie.title}</h1>
                       </div>
                       <Stars>
                         <Star size={16} color="#FEEA35" weight="fill" />
-                        <span>{movie.vote_average}</span>
+                        <span>{specialMovie.vote_average}</span>
                       </Stars>
                     </Section>
 
                     <Image>
                       <Poster
-                        src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                        src={`https://image.tmdb.org/t/p/w500/${specialMovie.poster_path}`}
                         loading="lazy"
-                        alt={movie.title}
+                        alt={specialMovie.title}
                       />
 
                       <DivInfo>
                         <Time>
                           <Globe size={20} color="#8b8d9d" />
-                          <span>{movie.original_language}/pt-BR</span>
+                          <span>{specialMovie.original_language}/pt-BR</span>
                         </Time>
                         <Launch>
                           <CalendarBlank size={20} color="#8b8d9d" />
-                          <span>{movie.release_date.slice(0, 4)}</span>
+                          <span>{specialMovie.release_date.slice(0, 4)}</span>
                         </Launch>
                       </DivInfo>
 
-                      <PlayerTrailer to={`/movie/${movie.id}`}>
-                        <img src={btn} alt="Assistir trailer" />
+                      <PlayerTrailer to={`/movie/${specialMovie.id}`}>
+                        <Note size={24} color="#8b8d9b" />
                         Ver Sinopse
                       </PlayerTrailer>
-
                     </Image>
                   </Movie>
-                </Recomendation>
+                </Recommendations>
               </Film>
-            ))
+            </>
           ) : (
             <p>Carregando filmes...</p>
           )}
@@ -129,5 +199,3 @@ function Home() {
     </Container>
   );
 }
-
-export default Home;

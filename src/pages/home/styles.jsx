@@ -117,7 +117,7 @@ export const Top = styled.div`
 
 export const Logo = styled.div``;
 
-export const Recomendation = styled.div`
+export const Recommendations = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -252,4 +252,4 @@ export const PlayerTrailer = styled(Link)`
 `;
 
 export const SecondCardBg = " linear-gradient(45deg, #8e222c, #de1923)";
-export const ThirdCardBg = "linear-gradient(45deg,#41773e, #44697b)";
+export const ThirdCardBg = "linear-gradient(45deg,#470904, #f1662d)";

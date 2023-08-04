@@ -1,8 +1,6 @@
 import { Container, Swapper, DivBtn, ButtonShare, ButtonTrailer, DivImage, Poster, DivInfo, DivMovie, Top, Logo, DivTitle, Title, Launch, Stars, DivNotion, DivSinopse, Sinopse, PlayerTrailer } from "./styles";
-
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
 import { ArrowLeft, Clock, FilmSlate, ShareNetwork, Star, Wallet } from "@phosphor-icons/react";
 import btn from "./../../assets/btn.svg";
 import logo from "./../../assets/logo.svg";
@@ -10,7 +8,6 @@ import logo from "./../../assets/logo.svg";
 const apiKey = import.meta.env.VITE_API_KEY;
 
 export default function Movie() {
-
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [genres, setGenres] = useState([]);
@@ -29,7 +26,7 @@ export default function Movie() {
   async function fetchMovieDetail() {
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=pt-BR`
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=pt-BR&append_to_response=videos`
       );
       const data = await response.json();
       setMovie(data);
@@ -72,10 +69,12 @@ export default function Movie() {
                   alt={movie.title}
                 />
                 <DivBtn>
-                  <ButtonTrailer>
-                    <img src={btn} />
-                    Assistir trailer
-                  </ButtonTrailer>
+                  {movie.videos && movie.videos.results.length > 0 ? (
+                      <ButtonTrailer to={`https://www.youtube.com/watch?v=${movie.videos.results[0].key}`} target="_blank">
+                        <img src={btn} />
+                        Assistir trailer
+                      </ButtonTrailer>
+                  ) : null}
                   <ButtonShare>
                     <div>
                       <ShareNetwork size={28} color="#a754fa" />

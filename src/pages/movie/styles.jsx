@@ -153,7 +153,7 @@ export const DivBtn = styled.div`
   justify-content: space-between;
 `;
 
-export const ButtonShare = styled.button`
+export const ButtonShare = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -194,7 +194,7 @@ export const ButtonShare = styled.button`
   }
 `;
 
-export const ButtonTrailer = styled.button`
+export const ButtonTrailer = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;

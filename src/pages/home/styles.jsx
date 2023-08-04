@@ -61,6 +61,9 @@ export const Film = styled(motion.div)`
   width: 210px;
   padding: 6px;
 
+  text-decoration: none;
+  color: #fff;
+
   border-radius: 8px;
 
   transition: all 0.3s;

@@ -3,14 +3,13 @@ import { useState, useEffect } from "react";
 
 import logo from "./../../assets/logo.svg";
 import { CalendarBlank, Star, Globe, Lightning, Note } from "@phosphor-icons/react";
+import { Link } from "react-router-dom";
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
-  const [background, setBackground] = useState(
-    "linear-gradient(45deg, #181920, #323242)"
-  );
+  const [background, setBackground] = useState( "linear-gradient(45deg, #181920, #323242)" );
   const [loading, setLoading] = useState(false);
   const [showRetry, setShowRetry] = useState(false);
 
@@ -97,7 +96,8 @@ export default function Home() {
           {movies.length >= 3 ? (
             <>
               {movies.slice(0, 2).map((movie, index) => (
-                <Film
+                <Film 
+                as={Link} to={`/movie/${movie.id}`}
                   key={movie.id}
                   initial={isDesktop ? { y: "120%" } : {}}
                   animate={isDesktop ? { y: 0 } : {}}
@@ -146,6 +146,7 @@ export default function Home() {
               ))}
 
               <Film
+                as={Link} to={`/movie/${specialMovie.id}`}
                 initial={isDesktop ? { y: "120%" } : {}}
                 animate={isDesktop ? { y: 0 } : {}}
                 transition={isDesktop ? { duration: 0.5, delay: 1.1 } : {}}

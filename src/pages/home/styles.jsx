@@ -254,5 +254,5 @@ export const PlayerTrailer = styled(Link)`
   }
 `;
 
-export const ThirdCardBg = " linear-gradient(45deg, #1a6d5d, #031d1c)";
+export const ThirdCardBg = " linear-gradient(45deg, #2480bf, #0c2132)";
 export const SecondCardBg = "linear-gradient(45deg,#470904, #f1662d)";

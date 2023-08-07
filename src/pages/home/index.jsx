@@ -31,7 +31,7 @@ export default function Home() {
   const handleMouseEnter = (index) => {
     switch (index) {
       case 0:
-        setBackground("linear-gradient(45deg, #2480bf, #0c2132)");
+        setBackground("linear-gradient(45deg,#1a6d5d, #031d1c)");
         break;
       case 1:
         setBackground(SecondCardBg);

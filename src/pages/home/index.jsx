@@ -95,7 +95,7 @@ export default function Home() {
         <Card>
           {movies.length >= 3 ? (
             <>
-              {movies.slice(0, 2).map((movie, index) => (
+              {movies.slice(0, 3).map((movie, index) => (
                 <Film 
                 as={Link} to={`/movie/${movie.id}`}
                   key={movie.id}
@@ -144,53 +144,6 @@ export default function Home() {
                   </Recommendations>
                 </Film>
               ))}
-
-              <Film
-                as={Link} to={`/movie/${specialMovie.id}`}
-                initial={isDesktop ? { y: "120%" } : {}}
-                animate={isDesktop ? { y: 0 } : {}}
-                transition={isDesktop ? { duration: 0.5, delay: 1.1 } : {}}
-                onMouseEnter={() => handleMouseEnter(2)}
-                onMouseLeave={handleMouseLeave}
-              >
-                <Recommendations>
-                  <Movie>
-                    <Section>
-                      <div className="title">
-                        <h1>{specialMovie.title}</h1>
-                      </div>
-                      <Stars>
-                        <Star size={16} color="#FEEA35" weight="fill" />
-                        <span>{specialMovie.vote_average}</span>
-                      </Stars>
-                    </Section>
-
-                    <Image>
-                      <Poster
-                        src={`https://image.tmdb.org/t/p/w500/${specialMovie.poster_path}`}
-                        loading="lazy"
-                        alt={specialMovie.title}
-                      />
-
-                      <DivInfo>
-                        <Time>
-                          <Globe size={20} color="#8b8d9d" />
-                          <span>{specialMovie.original_language}/pt-BR</span>
-                        </Time>
-                        <Launch>
-                          <CalendarBlank size={20} color="#8b8d9d" />
-                          <span>{specialMovie.release_date.slice(0, 4)}</span>
-                        </Launch>
-                      </DivInfo>
-
-                      <PlayerTrailer to={`/movie/${specialMovie.id}`}>
-                        <Note size={24} color="#8b8d9b" />
-                        Ver Sinopse
-                      </PlayerTrailer>
-                    </Image>
-                  </Movie>
-                </Recommendations>
-              </Film>
             </>
           ) : (
             <p>Carregando filmes...</p>

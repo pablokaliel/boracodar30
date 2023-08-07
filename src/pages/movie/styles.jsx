@@ -36,6 +36,7 @@ export const Swapper = styled(motion.div)`
   @media (max-width: 770px) {
     width: 100%;
     height: 100%;
+    border-radius:0px;
 
     padding: 12px 16px;
   }
@@ -48,6 +49,7 @@ export const DivInfo = styled.div`
 
   @media (max-width: 770px) {
     align-items: center;
+
   }
 `;
 
@@ -226,6 +228,11 @@ export const DivTitle = styled.div`
   align-items: center;
 
   gap: 5px;
+
+  @media (max-width: 770px) {
+      flex-direction: column;
+      align-items:flex-start
+    }
 `;
 
 export const Title = styled.h1`

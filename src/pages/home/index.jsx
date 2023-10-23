@@ -66,9 +66,6 @@ export default function Home() {
     fetchMovies();
   }, []);
 
-  // Encontrando o filme com o ID 872585 da lista de filmes populares
-  const specialMovie = movies.find((movie) => movie.id === 872585);
-
   return (
     <Container style={{ background: background, transition: "background 10s" }}>
       <Swapper
@@ -78,7 +75,7 @@ export default function Home() {
       >
         <Top>
           <Logo>
-            <img src={logo} alt="" />
+             <img src={logo} alt="" />
           </Logo>
           <button onClick={handleButtonClick}>
             {loading

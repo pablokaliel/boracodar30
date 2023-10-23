@@ -91,11 +91,12 @@ export default function Movie() {
                   </Launch>
                   <Stars>
                     <Star size={16} color="#FEEA35" weight="fill" />
-                    <span>{movie.vote_average}</span>
+                    <span>{movie.vote_average.toFixed(1)}</span>
                   </Stars>
                 </DivTitle>
 
                 <DivNotion>
+                  <div className="genre">
                   <div>
                     <Clock size={24} color="#8b8d9b" />
                     <span>{movie.runtime}min</span>
@@ -104,12 +105,15 @@ export default function Movie() {
                     <Wallet size={24} color="#8b8d9b" />
                     <span>{formatCurrency(movie.budget)}mi</span>
                   </div>
+                  </div>
+                  <div className="genre">
                   {genres.map((genre) => (
                     <div key={genre.id}>
                       <FilmSlate size={24} color="#8b8d9b" />
                       <span>{genre.name}</span>
                     </div>
                   ))}
+                  </div>
                 </DivNotion>
 
                 <DivSinopse>

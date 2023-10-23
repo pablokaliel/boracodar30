@@ -36,7 +36,7 @@ export const Swapper = styled(motion.div)`
   @media (max-width: 770px) {
     width: 100%;
     height: 100%;
-    border-radius:0px;
+    border-radius: 0px;
 
     padding: 12px 16px;
   }
@@ -49,7 +49,6 @@ export const DivInfo = styled.div`
 
   @media (max-width: 770px) {
     align-items: center;
-
   }
 `;
 
@@ -230,9 +229,9 @@ export const DivTitle = styled.div`
   gap: 5px;
 
   @media (max-width: 770px) {
-      flex-direction: column;
-      align-items:flex-start
-    }
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const Title = styled.h1`
@@ -264,6 +263,11 @@ export const DivNotion = styled.div`
 
   gap: 10px;
 
+  .genre {
+    display: flex;
+    flex-direction: row;
+  }
+
   div {
     display: flex;
     align-items: center;
@@ -281,7 +285,7 @@ export const DivNotion = styled.div`
   }
 
   @media (max-width: 770px) {
-    align-items: flex-start;
+    flex-direction: column;
   }
 `;
 
